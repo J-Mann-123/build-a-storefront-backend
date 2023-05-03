@@ -4,4 +4,7 @@ CREATE TABLE orders(
     quantity INTEGER,
     user_id INTEGER,
     status BOOLEAN,
-)
+
+    FOREIGN KEY (product_id) REFERENCES product(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
