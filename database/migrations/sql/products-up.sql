@@ -1,4 +1,4 @@
-CREATE TABLE orders(
+CREATE TABLE products(
     id SERIAL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
     price INTEGER NOT NULL
