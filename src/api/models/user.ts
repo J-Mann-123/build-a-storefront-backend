@@ -8,7 +8,7 @@ export type User = {
     password: string;
 }
 
-export class Users {
+export class AllUsers {
     // index CRUD Method (Reads)
     async index (): Promise<User[]> {
         try {

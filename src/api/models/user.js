@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Users = void 0;
+exports.AllUsers = void 0;
 // @ts-ignore
 const database_1 = __importDefault(require("../database"));
-class Users {
+class AllUsers {
     // index CRUD Method (Reads)
     async index() {
         try {
@@ -67,4 +67,4 @@ class Users {
         }
     }
 }
-exports.Users = Users;
+exports.AllUsers = AllUsers;
