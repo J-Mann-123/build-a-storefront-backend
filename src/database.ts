@@ -12,13 +12,6 @@ const {
     ENV,
 } = process.env
 
-// const Client = new Pool({
-//     host: POSTGRES_HOST,
-//     database: POSTGRES_DB,
-//     user: POSTGRES_USER,
-//     password: POSTGRES_PASSWORD,
-// })
-
 let Client
 console.log(ENV)
 
