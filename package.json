@@ -27,6 +27,7 @@
     "rimraf": "^5.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.13",
     "@types/dotenv": "^8.2.0",
     "@types/jasmine": "^3.10.7",
     "@types/jsonwebtoken": "^9.0.1",
