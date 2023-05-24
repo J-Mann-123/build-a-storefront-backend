@@ -39,8 +39,8 @@ const destroy = async (req: Request, res: Response) => {
 const userRoutes = (app: express.Application) => {
     app.get('/users', index)
     app.get('/user/:id', show)
-    app.get('/newUser', create)
-    app.get('/deleted/:id', destroy)
+    app.post('/newUser', create)
+    app.delete('/deleted/:id', destroy)
 }
 
 export default userRoutes
