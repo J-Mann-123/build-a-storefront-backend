@@ -12,7 +12,7 @@ const {
     ENV,
 } = process.env
 
-let Client
+let Client: unknown
 console.log(ENV)
 
 if (ENV === 'test') {
