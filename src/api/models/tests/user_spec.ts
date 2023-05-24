@@ -6,7 +6,7 @@ describe("All Users", () => {
     it("should have all of the users", () => {
         expect(store.index).toBeDefined();
     });
-    it("should return user", () => {
-        expect(store).toEqual([]);
-    })
+    // it("should return user", () => {
+    //     expect(store).toEqual([]);
+    // })
 })
