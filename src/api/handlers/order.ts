@@ -1,29 +1,29 @@
 import express, { Request, Response } from 'express'
-import { User, AllUsers } from '../models/user'
+import { Order, AllOrders } from '../models/order'
 
-const store = new AllUsers()
+const store = new AllOrders()
 
 const index = async (_req: Request, res: Response) => {
-    const users = await store.index()
-    res.json(users)
+    const orders = await store.index()
+    res.json(orders)
 }
 
 const show = async (req: Request, res: Response) => {
-    const user = await store.show(req.params.id)
-    res.json(user)
+    const order = await store.show(req.params.id)
+    res.json(order)
 }
 
 const create = async (req: Request, res: Response) => {
     try {
-        const user: User = {
+        const order: Order = {
             id: req.body.id,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            password: req.body.password,
+            productId: req.body.productId,
+            quantity: req.body.quantity,
+            userId: req.body.userId,
+            status: req.body.status,
         }
-
-        const newUser = await store.create(user)
-        res.json(newUser)
+        const newOrder = await store.create(order)
+        res.json(newOrder)
     } catch (err) {
         res.status(400)
         res.json(err)
