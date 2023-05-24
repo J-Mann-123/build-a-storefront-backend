@@ -1,5 +1,4 @@
-// @ts-ignore
-import Client from '../database'
+import Client from "../../database"
 
 export type User = {
     id: number;
@@ -38,7 +37,7 @@ export class AllUsers {
     // create CRUD Method (Creates)
     async create (u: User): Promise<User> {
         try {
-            const sql = 'INSERT INTO users (first_name, last_name, password) VALUES($1, $2, $3, $4) RETURNING *'
+            const sql = 'INSERT INTO users (first_name, last_name, password) VALUES($1, $2, $3) RETURNING *'
             // @ts-ignore
             const conn = await Client.connect()
             const result = await conn
