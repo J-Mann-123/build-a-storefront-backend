@@ -27,6 +27,7 @@
     "rimraf": "^5.0.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/dotenv": "^8.2.0",
     "@types/jasmine": "^3.10.7",
