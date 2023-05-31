@@ -20,6 +20,10 @@ app.get('/', function (req: Request, res: Response) {
     res.send('Hello World!')
 })
 
+app.get('/test-cors', cors(corsOptions), function (req, res, next) {
+    res.json({ msg: 'This is CORS-enabled with a middleware' })
+})
+
 user_routes(app)
 
 app.listen(3000, function () {
