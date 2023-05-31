@@ -98,7 +98,7 @@ var AllUsers = /** @class */ (function () {
     // create CRUD Method (Creates)
     AllUsers.prototype.create = function (u) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, hash, result, user, err_3;
+            var sql, conn, pepper, saltRounds, hash, result, user, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -107,6 +107,8 @@ var AllUsers = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
+                        pepper = process.env.BCRYPT_PASSWORD;
+                        saltRounds = process.env.SALT_ROUNDS;
                         hash = bcrypt_1.default.hashSync(u.password + pepper, parseInt(saltRounds));
                         return [4 /*yield*/, conn
                                 .query(sql, [u.firstName, u.lastName, hash])];
@@ -151,7 +153,7 @@ var AllUsers = /** @class */ (function () {
     };
     AllUsers.prototype.authenticate = function (firstName, lastName, password) {
         return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, result, user;
+            var conn, sql, result, pepper, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, database_1.default.connect()];
@@ -161,6 +163,7 @@ var AllUsers = /** @class */ (function () {
                         return [4 /*yield*/, conn.query(sql, [firstName, lastName])];
                     case 2:
                         result = _a.sent();
+                        pepper = process.env.BCRYPT_PASSWORD;
                         console.log(password + pepper);
                         if (result.rows.length) {
                             user = result.rows[0];

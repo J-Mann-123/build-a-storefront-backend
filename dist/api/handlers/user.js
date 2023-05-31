@@ -67,7 +67,7 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
     });
 }); };
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newUser, token, err_1;
+    var user, newUser, tokenSecret, token, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -81,7 +81,8 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 return [4 /*yield*/, store.create(user)];
             case 1:
                 newUser = _a.sent();
-                token = jsonwebtoken_1.default.sign({ user: newUser }, process.env.TOKEN_SECRET);
+                tokenSecret = process.env.TOKEN_SECRET;
+                token = jsonwebtoken_1.default.sign({ user: newUser }, tokenSecret);
                 res.json(token);
                 return [3 /*break*/, 3];
             case 2:
@@ -93,28 +94,34 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
-// const create = async (req: Request, res: Response) => {
-//     const user: User = {
-//         username: req.body.username,
-//         password: req.body.password,
-//     } try {
-//         const newUser = await store.create(user)
-//         var token = jwt.sign({ user: newUser },
-//             process.env.TOKEN_SECRET);
-//         res.json(token)
-//     } catch (err) {
-//         res.status(400)
-//         res.json(err + user)
-//     }
-// }
-// const authenticate = async (req: Request, res: Response) => {
-//     const user: User = {
-//         username: req.body.username,
-//         password: req.body.password,
-//     } try {
-//         const u = await store.authenticate(user.username, user.password) var token = jwt.sign({ user: u }, process.env.TOKEN_SECRET); res.json(token)
-//     } catch (error) { res.status(401) res.json({ error }) }
-// }
+var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, tokenSecret, u, token, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                user = {
+                    id: req.body.id,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    password: req.body.password,
+                };
+                tokenSecret = process.env.TOKEN_SECRET;
+                return [4 /*yield*/, store.authenticate(user.firstName, user.lastName, user.password)];
+            case 1:
+                u = _a.sent();
+                token = jsonwebtoken_1.default.sign({ user: u }, tokenSecret);
+                res.json(token);
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                res.status(401);
+                res.json(err_2);
+                return [2 /*return*/];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var deleted;
     return __generator(this, function (_a) {
@@ -132,5 +139,6 @@ var userRoutes = function (app) {
     app.get('/user/:id', show);
     app.post('/newUser', create);
     app.delete('/deleted/:id', destroy);
+    app.get('/user/:id', authenticate);
 };
 exports.default = userRoutes;
