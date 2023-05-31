@@ -35,12 +35,27 @@ const destroy = async (req: Request, res: Response) => {
     res.json(deleted)
 }
 
+const addProduct = async (_req: Request, res: Response) => {
+    const orderId: string = _req.params.id
+    const productId: string = _req.body.productId
+    const quantity: number = parseInt(_req.body.quantity)
 
-const userRoutes = (app: express.Application) => {
-    app.get('/users', index)
-    app.get('/user/:id', show)
-    app.post('/newUser', create)
-    app.delete('/deleted/:id', destroy)
+    try {
+        const addedProduct = await store.addProduct(quantity, orderId, productId)
+        res.json(addedProduct)
+    } catch (err) {
+        res.status(400)
+        res.json(err)
+    }
 }
 
-export default userRoutes
+
+const orderRoutes = (app: express.Application) => {
+    app.get('/orders', index)
+    app.get('/oder/:id', show)
+    app.post('/newOrder', create)
+    app.delete('/deleted/:id', destroy)
+    app.post('/orders/:id/products', addProduct)
+}
+
+export default orderRoutes
