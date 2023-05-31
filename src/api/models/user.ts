@@ -70,21 +70,22 @@ export class AllUsers {
             throw new Error(`Could not delete user ${id}.  Error: ${err}`)
         }
     }
-    // async authenticate (firstName: string, lastName: string, password: string): Promise<User | null> {
-    //     // @ts-ignore
-    //     const conn = await Client.connect()
-    //     const sql = 'SELECT password_digest FROM users WHERE username=($1)'
-    //     const result = await conn.query(sql, [firstName, lastName])
-    //     console.log(password + pepper)
+    async authenticate (firstName: string, lastName: string, password: string): Promise<User | null> {
+        // @ts-ignore
+        const conn = await Client.connect()
+        const sql = 'SELECT password_digest FROM users WHERE username=($1)'
+        const result = await conn.query(sql, [firstName, lastName])
+        const pepper: string = process.env.BCRYPT_PASSWORD as string;
+        console.log(password + pepper)
 
-    //     if (result.rows.length) {
-    //         const user = result.rows[0]
-    //         console.log(user)
+        if (result.rows.length) {
+            const user = result.rows[0]
+            console.log(user)
 
-    //         if (bcrypt.compareSync(password + pepper, user.password_digest)) {
-    //             return user
-    //         }
-    //     }
-    //     return null
-    // }
+            if (bcrypt.compareSync(password + pepper, user.password_digest)) {
+                return user
+            }
+        }
+        return null
+    }
 }
