@@ -64,21 +64,6 @@ app.post('/user', async (req: Request, res: Response) => {
     }
 })
 
-// app.put('/user/:id', (req: Request, res: Response) => {
-//     const newUser: User = {
-//         id: req.params.id,
-//         firstName: req.body.title,
-//         lastName: req.body.content
-//     }
-//     try {
-//         updateUser(newUser);
-//         res.send('this is the EDIT route')
-//     } catch (err) {
-//         res.status(400)
-//         res.json(err)
-//     }
-// })
-
 app.delete('/user/:id', (_req: Request, res: Response) => {
     try {
         res.send('this is the DELETE route')
