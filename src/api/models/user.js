@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllUsers = void 0;
-// @ts-ignore
-const database_1 = __importDefault(require("../database"));
+const database_1 = __importDefault(require("../../database"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 class AllUsers {
     // index CRUD Method (Reads)
     async index() {
@@ -38,11 +38,14 @@ class AllUsers {
     // create CRUD Method (Creates)
     async create(u) {
         try {
-            const sql = 'INSERT INTO users (first_name, last_name, password) VALUES($1, $2, $3, $4) RETURNING *';
+            const sql = 'INSERT INTO users (first_name, last_name, password) VALUES($1, $2, $3) RETURNING *';
             // @ts-ignore
             const conn = await database_1.default.connect();
+            const pepper = process.env.BCRYPT_PASSWORD;
+            const saltRounds = process.env.SALT_ROUNDS;
+            const hash = bcrypt_1.default.hashSync(u.password + pepper, parseInt(saltRounds));
             const result = await conn
-                .query(sql, [u.firstName, u.lastName, u.password]);
+                .query(sql, [u.firstName, u.lastName, hash]);
             const user = result.rows[0];
             conn.release();
             return user;
@@ -65,6 +68,22 @@ class AllUsers {
         catch (err) {
             throw new Error(`Could not delete user ${id}.  Error: ${err}`);
         }
+    }
+    async authenticate(firstName, lastName, password) {
+        // @ts-ignore
+        const conn = await database_1.default.connect();
+        const sql = 'SELECT password_digest FROM users WHERE username=($1)';
+        const result = await conn.query(sql, [firstName, lastName]);
+        const pepper = process.env.BCRYPT_PASSWORD;
+        console.log(password + pepper);
+        if (result.rows.length) {
+            const user = result.rows[0];
+            console.log(user);
+            if (bcrypt_1.default.compareSync(password + pepper, user.password_digest)) {
+                return user;
+            }
+        }
+        return null;
     }
 }
 exports.AllUsers = AllUsers;

@@ -1,4 +1,4 @@
-import { AllProducts } from '../../src/api/models/product';
+import { AllProducts } from '../../api/models/product';
 
 const store = new AllProducts()
 

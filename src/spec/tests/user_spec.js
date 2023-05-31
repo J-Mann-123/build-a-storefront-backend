@@ -1,7 +1,7 @@
-import { AllUsers } from '../../src/api/models/user';
-
-const store = new AllUsers()
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const user_1 = require("../../api/models/user");
+const store = new user_1.AllUsers();
 describe("All Users", () => {
     it("should have user index method", () => {
         expect(store.index).toBeDefined();
@@ -18,4 +18,4 @@ describe("All Users", () => {
     it("should have user authenticate method", () => {
         expect(store.authenticate).toBeDefined();
     });
-})
+});
