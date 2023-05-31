@@ -39,96 +39,98 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var body_parser_1 = __importDefault(require("body-parser"));
-var cors_1 = __importDefault(require("cors"));
-var user_1 = __importDefault(require("./api/handlers/user"));
-var user_2 = require("./api/models/user");
-// const cors = require('cors')
-var app = (0, express_1.default)();
-var address = "0.0.0.0:3000";
-var corsOptions = {
-    origin: "https://apple.com",
-    optionsSuccessStatus: 200
-};
-app.use((0, cors_1.default)(corsOptions));
-app.use(body_parser_1.default.json());
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
-app.get('/test-cors', (0, cors_1.default)(corsOptions), function (req, res, next) {
-    res.json({ msg: 'This is CORS-enabled with a middleware' });
-});
-(0, user_1.default)(app);
-app.listen(3000, function () {
-    console.log("starting app on: ".concat(address));
-});
-app.get('/user', function (_req, res) {
-    try {
-        res.send('this is the INDEX route');
-    }
-    catch (err) {
-        res.status(400);
-        res.json(err);
-    }
-});
-app.get('/user/:id', function (_req, res) {
-    try {
-        res.send('this is the SHOW route');
-    }
-    catch (err) {
-        res.status(400);
-        res.json(err);
-    }
-});
-app.post('/user', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var newUser, allUsers, createdUser, err_1;
+var user_1 = require("../models/user");
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+var store = new user_1.AllUsers();
+var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var users;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, store.index()];
+            case 1:
+                users = _a.sent();
+                res.json(users);
+                return [2 /*return*/];
+        }
+    });
+}); };
+var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, store.show(req.params.id)];
+            case 1:
+                user = _a.sent();
+                res.json(user);
+                return [2 /*return*/];
+        }
+    });
+}); };
+var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, newUser, token, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                newUser = {
+                _a.trys.push([0, 2, , 3]);
+                user = {
                     id: req.body.id,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     password: req.body.password,
                 };
-                allUsers = new user_2.AllUsers();
-                _a.label = 1;
+                return [4 /*yield*/, store.create(user)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, allUsers.create(newUser)];
+                newUser = _a.sent();
+                token = jsonwebtoken_1.default.sign({ user: newUser }, process.env.TOKEN_SECRET);
+                res.json(token);
+                return [3 /*break*/, 3];
             case 2:
-                createdUser = _a.sent();
-                res.status(201).json(createdUser);
-                return [3 /*break*/, 4];
-            case 3:
                 err_1 = _a.sent();
-                res.status(400).json(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                res.status(400);
+                res.json(err_1);
+                return [2 /*return*/];
+            case 3: return [2 /*return*/];
         }
     });
-}); });
-// app.put('/user/:id', (req: Request, res: Response) => {
-//     const newUser: User = {
-//         id: req.params.id,
-//         firstName: req.body.title,
-//         lastName: req.body.content
-//     }
-//     try {
-//         updateUser(newUser);
-//         res.send('this is the EDIT route')
+}); };
+// const create = async (req: Request, res: Response) => {
+//     const user: User = {
+//         username: req.body.username,
+//         password: req.body.password,
+//     } try {
+//         const newUser = await store.create(user)
+//         var token = jwt.sign({ user: newUser },
+//             process.env.TOKEN_SECRET);
+//         res.json(token)
 //     } catch (err) {
 //         res.status(400)
-//         res.json(err)
+//         res.json(err + user)
 //     }
-// })
-app.delete('/user/:id', function (_req, res) {
-    try {
-        res.send('this is the DELETE route');
-    }
-    catch (err) {
-        res.status(400);
-        res.json(err);
-    }
-});
+// }
+// const authenticate = async (req: Request, res: Response) => {
+//     const user: User = {
+//         username: req.body.username,
+//         password: req.body.password,
+//     } try {
+//         const u = await store.authenticate(user.username, user.password) var token = jwt.sign({ user: u }, process.env.TOKEN_SECRET); res.json(token)
+//     } catch (error) { res.status(401) res.json({ error }) }
+// }
+var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var deleted;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, store.delete(req.body.id)];
+            case 1:
+                deleted = _a.sent();
+                res.json(deleted);
+                return [2 /*return*/];
+        }
+    });
+}); };
+var userRoutes = function (app) {
+    app.get('/users', index);
+    app.get('/user/:id', show);
+    app.post('/newUser', create);
+    app.delete('/deleted/:id', destroy);
+};
+exports.default = userRoutes;
