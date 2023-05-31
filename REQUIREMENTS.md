@@ -4,34 +4,44 @@ The company stakeholders want to create an online storefront to showcase their g
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 
 ## API Endpoints
-#### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
-
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+-  Index '/users'
+-  Show '/user/:id'
+-  Create '/newUser'
+-  Destroy '/deleted/:id'
+
+#### Products
+-  Index '/products'
+-  Show '/product/:id'
+-  Create '/newProduct'
+-  Destroy '/deleted/:id'
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+-  Index '/orders'
+-  Show '/orders/:id'
+-  Create '/newOrder'
+-  Destroy '/deleted/:id'
 
 ## Data Shapes
-#### Product
--  id
-- name
-- price
-- [OPTIONAL] category
-
-#### User
+#### Users
 - id
 - firstName
 - lastName
 - password
+
+    id SERIAL PRIMARY KEY,
+    firstName VARCHAR(30) NOT NULL,
+    lastName VARCHAR(30) NOT NULL,
+    password VARCHAR(30) NOT NULL
+
+#### Products
+-  id
+- name
+- price
+
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    price INTEGER NOT NULL
 
 #### Orders
 - id
@@ -39,4 +49,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+    id SERIAL PRIMARY KEY,
+    product_id INTEGER,
+    quantity INTEGER,
+    user_id INTEGER,
+    status BOOLEAN,
+
+    FOREIGN KEY (product_id) REFERENCES product(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
 
