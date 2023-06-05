@@ -5,22 +5,22 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Users
--  Index '/users'
--  Show '/user/:id'
--  Create '/newUser'
--  Destroy '/deleted/:id'
+-  Index '/users' GET
+-  Show '/user/:id' PUT
+-  Create '/newUser' POST
+-  Destroy '/deleted/:id' DELETE
 
 #### Products
--  Index '/products'
--  Show '/product/:id'
--  Create '/newProduct'
--  Destroy '/deleted/:id'
+-  Index '/products' GET
+-  Show '/product/:id' PUT
+-  Create '/newProduct' POST
+-  Destroy '/deleted/:id' DELETE
 
 #### Orders
--  Index '/orders'
--  Show '/orders/:id'
--  Create '/newOrder'
--  Destroy '/deleted/:id'
+-  Index '/orders' GET
+-  Show '/orders/:id' PUT
+-  Create '/newOrder' POST
+-  Destroy '/deleted/:id' DELETE
 
 ## Data Shapes
 #### Users
