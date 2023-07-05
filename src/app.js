@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.server = void 0;
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
@@ -11,14 +10,9 @@ const user_1 = __importDefault(require("./api/handlers/user"));
 const user_2 = require("./api/models/user");
 // const cors = require('cors')
 const app = (0, express_1.default)();
-const address = "0.0.0.0:3000";
 const corsOptions = {
-    origin: "https://apple.com",
     optionsSuccessStatus: 200
 };
-exports.server = app.listen(3000, () => {
-    console.log(`starting app on: ${address}`);
-});
 app.use((0, cors_1.default)(corsOptions));
 app.use(body_parser_1.default.json());
 app.get('/', function (req, res) {
@@ -28,9 +22,6 @@ app.get('/test-cors', (0, cors_1.default)(corsOptions), function (req, res, next
     res.json({ msg: 'This is CORS-enabled with a middleware' });
 });
 (0, user_1.default)(app);
-app.listen(3000, function () {
-    console.log(`starting app on: ${address}`);
-});
 app.get('/user', (_req, res) => {
     try {
         res.send('this is the INDEX route');

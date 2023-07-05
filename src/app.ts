@@ -6,16 +6,10 @@ import { User, AllUsers } from './api/models/user'
 
 // const cors = require('cors')
 const app: express.Application = express()
-const address: string = "0.0.0.0:3000"
 
 const corsOptions = {
-    origin: "https://apple.com",
     optionsSuccessStatus: 200
 }
-
-export const server = app.listen(3000, () => {
-    console.log(`starting app on: ${address}`);
-});
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
@@ -29,10 +23,6 @@ app.get('/test-cors', cors(corsOptions), function (req, res, next) {
 })
 
 user_routes(app)
-
-app.listen(3000, function () {
-    console.log(`starting app on: ${address}`)
-})
 
 app.get('/user', (_req: Request, res: Response) => {
     try {

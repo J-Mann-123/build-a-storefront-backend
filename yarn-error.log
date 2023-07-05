@@ -1,0 +1,78 @@
+Arguments: 
+  C:\Program Files (x86)\nodejs\node.exe C:\Users\jammy\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Python310\Scripts\;C:\Python310\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files (x86)\nodejs\;C:\Users\jammy\AppData\Local\Microsoft\WindowsApps;C:\Users\jammy\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jammy\AppData\Local\GitHubDesktop\bin;C:\Users\jammy\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.15.0
+
+Platform: 
+  win32 ia32
+
+Trace: 
+  Error: EBUSY: resource busy or locked, unlink 'C:\Users\jammy\OneDrive\Documents\IT Projects\build-a-storefront-backend\node_modules\npm\node_modules\brace-expansion\index.js'
+
+npm manifest: 
+  {
+    "name": "storefront_backend",
+    "version": "0.1.0",
+    "description": "",
+    "main": "server.ts",
+    "scripts": {
+      "start": "node src/server.ts",
+      "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
+      "test": "ENV=test db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
+      "tsc": "tsc"
+    },
+    "author": "Udacity",
+    "license": "ISC",
+    "dependencies": {
+      "@babel/node": "^7.22.1",
+      "@babel/register": "^7.21.0",
+      "@types/express": "^4.17.17",
+      "bcrypt": "^5.1.0",
+      "body-parser": "^1.19.0",
+      "cors": "^2.8.5",
+      "db-migrate": "^0.11.13",
+      "db-migrate-pg": "^1.2.2",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2",
+      "jsonwebtoken": "^9.0.0",
+      "node": "^14.17.3",
+      "node-gyp": "^9.3.1",
+      "pg": "^8.5.1",
+      "postgres": "^3.3.4",
+      "rimraf": "^5.0.0"
+    },
+    "devDependencies": {
+      "@babel/cli": "^7.21.5",
+      "@babel/core": "^7.22.1",
+      "@babel/preset-env": "^7.22.4",
+      "@types/bcrypt": "^5.0.0",
+      "@types/cors": "^2.8.13",
+      "@types/dotenv": "^8.2.0",
+      "@types/jasmine": "^3.10.7",
+      "@types/jsonwebtoken": "^9.0.1",
+      "@types/morgan": "^1.9.4",
+      "@types/pg": "^7.14.7",
+      "i": "^0.3.7",
+      "jasmine": "^3.99.0",
+      "jasmine-spec-reporter": "^6.0.0",
+      "jasmine-ts": "^0.3.0",
+      "morgan": "^1.10.0",
+      "npm": "^9.6.4",
+      "ts-node": "^9.1.1",
+      "tsc-watch": "^4.2.9",
+      "typescript": "^5.0.4"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
