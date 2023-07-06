@@ -5,7 +5,7 @@ import user_routes from './api/handlers/user'
 import { User, AllUsers } from './api/models/user'
 
 // const cors = require('cors')
-const app: express.Application = express()
+export const app: express.Application = express()
 
 const corsOptions = {
     optionsSuccessStatus: 200

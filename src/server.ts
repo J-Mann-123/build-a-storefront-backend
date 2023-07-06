@@ -1,15 +1,14 @@
-import express, { Request, Response } from 'express'
+import { Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import user_routes from './api/handlers/user'
 import { User, AllUsers } from './api/models/user'
 
-// const cors = require('cors')
-const app: express.Application = express()
+import { app } from './app';
 const address: string = "0.0.0.0:3000"
 
 const corsOptions = {
-    origin: "https://apple.com",
+    origin: "http://localhost:3000/",
     optionsSuccessStatus: 200
 }
 
@@ -29,10 +28,6 @@ app.get('/test-cors', cors(corsOptions), function (req, res, next) {
 })
 
 user_routes(app)
-
-app.listen(3000, function () {
-    console.log(`starting app on: ${address}`)
-})
 
 app.get('/user', (_req: Request, res: Response) => {
     try {
