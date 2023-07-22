@@ -16,6 +16,10 @@ To start the project run `yarn` or `npm i`
 6. psql
 Then your are inside the postgres terminal
 
+## Database Schema
+
+The database schema can be found as eith a drawio or png. It is in the root directory and is called "database-schema"
+
 ## running ports:
 
 # server port

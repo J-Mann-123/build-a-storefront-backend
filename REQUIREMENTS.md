@@ -22,6 +22,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 -  Create '/newOrder' POST
 -  Destroy '/deleted/:id' DELETE
 
+#### Order Products
+- id
+- user_id
+- product_id
+- quantity
+
+
 ## Data Shapes
 #### Users
 - id
@@ -35,7 +42,7 @@ These are the notes from a meeting with the frontend developer that describe wha
     password VARCHAR(30) NOT NULL
 
 #### Products
--  id
+- id
 - name
 - price
 
@@ -59,3 +66,41 @@ These are the notes from a meeting with the frontend developer that describe wha
     FOREIGN KEY (product_id) REFERENCES product(id),
     FOREIGN KEY (user_id) REFERENCES user(id)
 
+#### Order Products
+- id
+- user_id
+- product_id
+- quantity
+
+    FOREIGN KEY (product_id) REFERENCES product(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+
+## DB Shema
+
+CREATE SCHEMA storefront;
+
+CREATE TABLE storefront.users(
+    id SERIAL PRIMARY KEY,
+    firstName VARCHAR(30) NOT NULL,
+    lastName VARCHAR(30) NOT NULL,
+    password VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE storefront.products(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(30) NOT NULL,
+    price INTEGER NOT NULL
+);
+
+#### ONE-TO-MANY TABLE
+
+CREATE TABLE storefront.orders(
+    id SERIAL PRIMARY KEY,S
+    product_id INTEGER,
+    quantity INTEGER,
+    user_id INTEGER,
+    status BOOLEAN,
+
+    FOREIGN KEY (product_id) REFERENCES product(id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
+);
