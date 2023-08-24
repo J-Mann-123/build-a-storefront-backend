@@ -4,13 +4,13 @@
       "host": "127.0.0.1",
       "database": "dev_database",
       "user": "dev_user",
-      "password": "password123"
+      "password": "Password123"
     },
     "test": {
       "driver": "pg",
       "host": "127.0.0.1",
       "database": "test_database",
-      "user": "test_user",
-      "password": "password123"
+      "user": "dev_user",
+      "password": "Password123"
     }
   }
