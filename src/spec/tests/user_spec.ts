@@ -1,4 +1,4 @@
-import { AllUsers } from '../../api/models/user';
+import { AllUsers, User } from '../../api/models/user';
 
 const store = new AllUsers()
 
@@ -18,4 +18,15 @@ describe("All Users", () => {
     it("should have user authenticate method", () => {
         expect(store.authenticate).toBeDefined();
     });
+    it("should return the list of the products", async () => {
+        const users: User[] = await AllUsers.index();
+        expect(users).toEqual([
+            {
+                id: 2,
+                firstName: 'Luke',
+                lastName: 'Skywalker',
+                password: 'VaderStinks',
+            }
+        ])
+    })
 })

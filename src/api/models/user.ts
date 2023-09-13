@@ -9,6 +9,7 @@ export type User = {
 }
 
 export class AllUsers {
+    static index: any;
     // index CRUD Method (Reads)
     async index (): Promise<User[]> {
         try {
