@@ -9,6 +9,7 @@ export type Order = {
 }
 //maybe include the foreign key types in the Order object
 export class AllOrders {
+    static index: any;
     // index CRUD Method (Reads)
     async index (): Promise<Order[]> {
         try {

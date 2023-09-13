@@ -1,4 +1,4 @@
-import { AllOrders } from '../../api/models/order';
+import { AllOrders, Order } from '../../api/models/order';
 
 const store = new AllOrders()
 
@@ -15,4 +15,16 @@ describe("All Users", () => {
     it("should have order delete method", () => {
         expect(store.delete).toBeDefined();
     });
+    it("should return the list of the products", async () => {
+        const orders: Order[] = await AllOrders.index();
+        expect(orders).toEqual([
+            {
+                id: 2,
+                productId: 3,
+                quantity: 100,
+                userId: 234,
+                status: true,
+            }
+        ])
+    })
 })
