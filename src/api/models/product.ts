@@ -7,9 +7,7 @@ export type Product = {
 }
 
 export class AllProducts {
-    static index (): Product[] | PromiseLike<Product[]> {
-        throw new Error('Method not implemented.');
-    }
+    static index: any;
     // index CRUD Method (Reads)
     async index (): Promise<Product[]> {
         try {
