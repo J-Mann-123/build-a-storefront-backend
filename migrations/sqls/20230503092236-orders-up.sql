@@ -5,6 +5,6 @@ CREATE TABLE orders(
     user_id INTEGER,
     status BOOLEAN,
 
-    FOREIGN KEY (product_id) REFERENCES product(id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
